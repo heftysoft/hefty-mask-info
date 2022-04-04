@@ -1,94 +1,159 @@
+# Hefty Mask Info
+
+Another library to use for masking or deleting one or multiple nested attributes from a Javascript object.
+
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Install](#install)
+- [Usage](#usage)
+- [Methods](#methods)
+- [Notes](#notes)
+- [License](#license)
+- [Author](#author)
+
+## Install
+
+``` bash
+npm install hefty-mask-info
+```
+
+## Usage
+
+### Example of masking attributes
+
+```ts
+import {
+  MaskActions,
+  maskInfo,
+} from 'hefty-mask-info';
+
+// The object that has the attribute(s) to hide or mask
+const testObject = {
+  name: "hefty-mask-info",
+  features: {
+    id: "nm123456",
+    date: "2021-10-01T14:36:06.265Z",
+    isEnabled: true,
+    author: {
+      country: "Spain",
+      name: "Rodrigo",
+    }
+  }
+}
+
+const testObjectMask = maskInfo(testObject, ["name", "isEnabled"], {
+  action: MaskActions.MASK,
+});
+
+// RESULT
+/*
+  {
+    name: "*****",
+    features: {
+      id: "nm123456",
+      date: "2021-10-01T14:36:06.265Z",
+      isEnabled: "****",
+      author: {
+        country: "Spain",
+        name: "*****",
+      }
+    }
+  }
+*/
+```
+
+### Example of hiding attributes
+
+```ts
+import {
+  MaskActions,
+  maskInfo,
+} from 'hefty-mask-info';
+
+// The object that has the attribute(s) to hide or mask
+const testObject = {
+  name: "hefty-mask-info",
+  features: {
+    id: "nm123456",
+    date: "2021-10-01T14:36:06.265Z",
+    isEnabled: true,
+    author: {
+      country: "Spain",
+      name: "Rodrigo",
+    }
+  }
+}
 
 
-# HeftyMaskInfo
+const testObjectHide = maskInfo(testObject, ["name", "isEnabled"], {
+  action: MaskActions.HIDE,
+});
+// or
+/* 
+  const testObjectHide = maskInfo(testObject, ["name", "isEnabled"], {
+    action: MaskActions.HIDE,
+  });
+*/
 
-This project was generated using [Nx](https://nx.dev).
+// RESULT
+/*
+  {
+    features: {
+      id: "nm123456",
+      date: "2021-10-01T14:36:06.265Z",
+      author: {
+        country: "Spain",
+      }
+    }
+  }
+*/
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+```
 
-🔎 **Smart, Fast and Extensible Build System**
+## Notes
 
-## Adding capabilities to your workspace
+If the attribute is contained in the object but it is of type "object" then it will not work. Admitted data types:
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+- string
+- number
+- boolean
+- array
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+## Methods
 
-Below are our core plugins:
+```maskInfo(object, attributes, options);```
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+- **object(any)**: The input object that you want to get the attribute(s) from. Any Javascript object is valid.
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+- **attributes(string[])**: Array of attributes from which you want to mask or hide.
 
-## Generate an application
+- **options(Options)**: There are different options:
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+|      OPTIONS     |           TYPE          |                                                                                         DESCRIPTION                                                                                        |
+|:--------------:|:-----------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|     action     | MaskAction  (HIDE/MASK) |                                                                       Action to execute when the attribute is found.                                                                       |
+| substituteChar |    string (optional)    |                                     Default is "*". Char or string to substitute current value. **[It is only applied if the action is MaskActions.MASK]**                                     |
+|  useSameLength |    boolean (optional)   | Default is false. Flag to indicate if the length of the string that will replace the original value of the attribute will keep the same length. If set to false, by default the length used is 5. **[It is only applied if the action is MaskActions.MASK]** |
 
-> You can use any of the plugins above to generate applications as well.
+## License
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+MIT
 
-## Generate a library
+## Author
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+Md Nasir Uddin
 
-> You can also use any of the plugins above to generate libraries as well.
+## Credits
 
-Libraries are shareable across libraries and applications. They can be imported from `@hefty-mask-info/mylib`.
+- <a href="https://github.com/rluque8">Rodrigo Luque</a>
 
-## Development server
+- This library was generated with [Nx](https://nx.dev).
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+## Building
 
-## Code scaffolding
-
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `nx build hefty-mask-info` to build the library.
 
 ## Running unit tests
 
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `nx e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+Run `nx test hefty-mask-info` to execute the unit tests via [Jest](https://jestjs.io).
