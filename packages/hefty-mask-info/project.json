@@ -1,0 +1,32 @@
+{
+  "root": "packages/hefty-mask-info",
+  "sourceRoot": "packages/hefty-mask-info/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/hefty-mask-info",
+        "main": "packages/hefty-mask-info/src/index.ts",
+        "tsConfig": "packages/hefty-mask-info/tsconfig.lib.json",
+        "assets": ["packages/hefty-mask-info/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/hefty-mask-info/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/hefty-mask-info"],
+      "options": {
+        "jestConfig": "packages/hefty-mask-info/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,4 +1,6 @@
 {
   "version": 2,
-  "projects": {}
+  "projects": {
+    "hefty-mask-info": "packages/hefty-mask-info"
+  }
 }
