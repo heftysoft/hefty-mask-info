@@ -1,0 +1,39 @@
+{
+  "name": "hefty-mask-info",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "Another library to use for masking or deleting one or multiple nested attributes from a Javascript object.",
+  "homepage": "https://github.com/heftysoft/hefty-mask-info#README.md",
+  "engines": {
+    "node": ">=12.17"
+  },
+  "main": "./src/index.js",
+  "scripts": {},
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "mask",
+    "json mask",
+    "hide info",
+    "mask info",
+    "mask data",
+    "api response mask",
+    "mask log data",
+    "cjs",
+    "esm",
+    "umd",
+    "typescript",
+    "npm",
+    "package"
+  ],
+  "author": "Nasir Uddin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heftysoft/hefty-mask-info.git"
+  },
+  "bugs": {
+    "url": "https://github.com/heftysoft/hefty-mask-info/issues"
+  }
+}
