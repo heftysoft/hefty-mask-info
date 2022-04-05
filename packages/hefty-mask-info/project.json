@@ -9,7 +9,8 @@
         "outputPath": "dist/packages/hefty-mask-info",
         "main": "packages/hefty-mask-info/src/index.ts",
         "tsConfig": "packages/hefty-mask-info/tsconfig.lib.json",
-        "assets": ["packages/hefty-mask-info/*.md"]
+        "assets": ["packages/hefty-mask-info/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "lint": {

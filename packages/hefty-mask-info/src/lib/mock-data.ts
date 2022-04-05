@@ -5,7 +5,7 @@ export const mockArray = {
 
 export const mockResultArray = {
   name: "Test library",
-  features: "**",
+  features: ["****", "****"],
 };
 
 export const mockBoolean = {

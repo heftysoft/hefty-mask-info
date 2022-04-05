@@ -46,13 +46,11 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Setup NodeJS 14
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 14
           registry-url: 'https://npm.pkg.github.com'
           scope: '@nasiruddinml'
-      - run: npm ci
-
       - name: Install yarn
         run: npm install -g yarn
 

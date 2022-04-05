@@ -5,7 +5,9 @@
   "scripts": {},
   "private": true,
   "dependencies": {
-    "tslib": "^2.0.0"
+    "lodash": "^4.17.21",
+    "tslib": "^2.0.0",
+    "url-parse": "^1.5.10"
   },
   "devDependencies": {
     "@nrwl/cli": "13.9.6",
@@ -18,7 +20,9 @@
     "@swc/core": "~1.2.143",
     "@swc/helpers": "~0.3.3",
     "@types/jest": "27.0.2",
+    "@types/lodash": "^4.14.181",
     "@types/node": "16.11.7",
+    "@types/url-parse": "^1.4.8",
     "@typescript-eslint/eslint-plugin": "~5.10.0",
     "@typescript-eslint/parser": "~5.10.0",
     "eslint": "~8.7.0",
