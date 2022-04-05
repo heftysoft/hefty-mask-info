@@ -25,6 +25,33 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build libraries
+        run: |
+          npx nx affected:build --prod --base=$last_version --head=$current_version
+      - name: Publish components (npm packages)
+        run: |
+          for LIBRARY in $(yarn nx affected:libs --base=$last_version --head=$current_version --plain | awk 'NR > 2 && $1 != "Done" { print $1 }')
+          do
+            cd ./dist/packages/$LIBRARY
+            npm publish --access public
+            cd ..
+            cd ..
+          done
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Setup NodeJS 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@nasiruddinml'
+      - run: npm ci
 
       - name: Install yarn
         run: npm install -g yarn
@@ -50,12 +77,13 @@ jobs:
       - name: Build libraries
         run: |
           yarn nx affected:build --prod --base=$last_version --head=$current_version
+
       - name: Publish components (Github packages)
         run: |
           for LIBRARY in $(yarn nx affected:libs --base=$last_version --head=$current_version --plain | awk 'NR > 2 && $1 != "Done" { print $1 }')
           do
             cd ./dist/packages/$LIBRARY
-            npm publish --registry https://npm.pkg.github.com --no-git-tag-version --no-push --yes
+            npm publish
             cd ..
             cd ..
           done
