@@ -104,6 +104,9 @@ const qsMask = (
   options: Options
 ): string | null => {
   if (typeof value === 'string') {
+    if (!options.urlParse) {
+      return value;
+    }
     let parsedUrl: urlParse<Record<string, string | undefined>>;
     try {
       parsedUrl = urlParse(value, true);

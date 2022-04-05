@@ -4,7 +4,8 @@ export enum MaskActions {
 }
 
 export type Options = {
-  action: MaskActions;
+  action: MaskActions; // The action to perform on the source
+  urlParse?: boolean; // whether to parse the url
   onlyFirstOccurrence?: boolean; // If true, the action desired is only applied to the first occurrence of the attribute
   substituteChar?: string; // Character to use for substitution [only if action is MaskActions.MASK]
   useSameLength?: boolean; // If true, then the replacing string will have the same length as the original value [only if action is MaskActions.MASK]

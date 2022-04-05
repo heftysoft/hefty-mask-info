@@ -4,6 +4,7 @@ export const DEFAULT_LENGTH = 5;
 
 export const DEFAULT_OPTIONS: Options = Object.freeze({
   action: MaskActions.MASK,
+  urlParse: false,
   maskTimePropsNormally: false,
   maskFromRight: false,
   useSameLength: false,
