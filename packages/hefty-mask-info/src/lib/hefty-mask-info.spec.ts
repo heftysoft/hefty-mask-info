@@ -101,4 +101,18 @@ describe("maskInfo functionality", () => {
       )
     ).toStrictEqual(mockMultipleAttrsMaskResultString);
   });
+  test("When have full length list on options, the attributes are masked", () => {
+    expect(
+      maskInfo(
+        {password: "123456789", email: "test@test.com"},
+        ['email'],
+        {
+          action: MaskActions.MASK,
+          fullLengthList: ['password'],
+        }
+      )
+    ).toStrictEqual({
+      password: "*********", email: "******est.com"
+    });
+  });
 });

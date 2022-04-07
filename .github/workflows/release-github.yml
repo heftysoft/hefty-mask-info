@@ -1,4 +1,4 @@
-name: Publish NPM
+name: Publish Github
 
 on:
   push:
@@ -21,12 +21,13 @@ jobs:
           LAST_VERSION=$(git tag -l "v*" --sort=-version:refname | head -n 2 | awk 'NR == 2 { print $1 }')
           echo "current_version=$(echo $CURRENT_VERSION)" >> $GITHUB_ENV
           echo "last_version=$(echo $LAST_VERSION)" >> $GITHUB_ENV
+
       - name: Setup NodeJS 14
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 14
-          registry-url: 'https://registry.npmjs.org'
-
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@heftysoft'
       - name: Install dependencies
         run: npm install
 
@@ -38,9 +39,9 @@ jobs:
           for LIBRARY in $(yarn nx affected:libs --base=$last_version --head=$current_version --plain | awk 'NR > 2 && $1 != "Done" { print $1 }')
           do
             cd ./dist/packages/$LIBRARY
-            npm publish --access public
+            npm publish
             cd ..
             cd ..
           done
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

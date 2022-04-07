@@ -1,6 +1,6 @@
 {
   "name": "hefty-mask-info",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "type": "commonjs",
   "description": "Another library to use for masking or deleting one or multiple nested attributes from a Javascript object.",
   "homepage": "https://github.com/heftysoft/hefty-mask-info#README.md",

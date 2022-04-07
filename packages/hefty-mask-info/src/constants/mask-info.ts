@@ -8,6 +8,7 @@ export const DEFAULT_OPTIONS: Options = Object.freeze({
   maskTimePropsNormally: false,
   maskFromRight: false,
   useSameLength: false,
+  fullLengthList: [],
   onlyFirstOccurrence: false,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   isMaskable(value: any) {

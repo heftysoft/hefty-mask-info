@@ -20,6 +20,7 @@ const checkOptions = (options: Options): void => {
     useSameLength,
     maskTimePropsNormally,
     maskFromRight,
+    fullLengthList,
   } = options;
 
   // Check if options are valid
@@ -40,6 +41,9 @@ const checkOptions = (options: Options): void => {
   }
   if (exists(maskFromRight) && typeof maskFromRight !== 'boolean') {
     throw new Error('maskFromRight must be a boolean');
+  }
+  if (exists(fullLengthList) && Array.isArray(fullLengthList) && !fullLengthList.every((key) => typeof key === 'string')) {
+    throw new Error('fullLengthList must be a contain strings');
   }
 };
 
@@ -73,6 +77,7 @@ const maskPrimitive = (
     maskTimePropsNormally = false,
     maskFromRight = false,
     substituteChar = '*',
+    fullLengthList = [],
   } = options;
 
   /* Logging applications sometimes call new Date() on properties whose keys make them look like times/dates
@@ -84,7 +89,7 @@ const maskPrimitive = (
     ? String(value).split('')
     : String(value).split('').reverse();
   const valueLength = arrayFromString.length;
-  if (valueLength <= 3 || useSameLength)
+  if (valueLength <= 3 || useSameLength || (fullLengthList.length && fullLengthList.includes(String(key))))
     return substituteChar.repeat(valueLength);
 
   const indexToMaskTo = DEFAULT_LENGTH;
@@ -184,7 +189,7 @@ export const maskInfo = (
   if (finalOptions.isMaskable && finalOptions.isMaskable(source)) return source; // source is url with no offending query props or it's just stringlike - so we're just returning it.
   if (finalOptions.action === MaskActions.HIDE) {
     if (isPlainObject(source)) {
-      source = omitBy(source, (value, key) => keysToMask.includes(key));
+      source = omitBy(source, (_, key) => keysToMask.includes(key));
     }
   }
   const propertyHandler = (value: any, key: string | number) => {
@@ -193,6 +198,9 @@ export const maskInfo = (
       value = qsMaskResult;
     }
     if (keysToMask.includes(String(key))) {
+      return maskDeep(value, key, keysToMask, finalOptions);
+    }
+    if (finalOptions.fullLengthList?.length && finalOptions.fullLengthList.includes(String(key))) {
       return maskDeep(value, key, keysToMask, finalOptions);
     }
     if (isPlainObject(value) || Array.isArray(value)) {
